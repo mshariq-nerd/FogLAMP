@@ -6,6 +6,7 @@
     - group: ":Expected Failure Tests"
     - name: "Make sure login api without params return 405: Method Not allowed"
     - url: "/api/auth/login"
+    - method: "GET"
     - expected_status: [405]
 
 - test:
@@ -55,7 +56,7 @@
     - name: "Check the user using random token"
     - url: "/api/example/whoami"
     - method: "GET"
-    - headers: {authorization: bla}
+    - headers: {authorization: "blah"}
     - expected_status: [400]
 
 - test:
@@ -74,5 +75,5 @@
     - name: "Generate Refresh token based on any random token"
     - url: "/api/auth/refresh-token"
     - method: "POST"
-    - headers: {authorization: bla}
+    - headers: {authorization: "blah"}
     - expected_status: [400]
