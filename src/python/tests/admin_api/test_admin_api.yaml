@@ -51,6 +51,14 @@
         - compare: {jsonpath_mini: 'username', comparator: 'str_eq', expected: 'user'}
 
 - test:
+    - group: ":Expected Failure Tests"
+    - name: "Check the user using random token"
+    - url: "/api/example/whoami"
+    - method: "GET"
+    - headers: {authorization: bla}
+    - expected_status: [400]
+
+- test:
   - group: ":Successful Tests"
   - name: "Generate Refresh token based on generated access_token"
   - url: "/api/auth/refresh-token"
@@ -60,3 +68,11 @@
   - validators: # Validate that we get access token after requesting with valid refresh token
         - extract_test: {jsonpath_mini: 'access_token', test: "exists"}
         - compare: {jsonpath_mini: "access_token", comparator: "length_eq", expected: 136}
+
+- test:
+    - group: ":Expected Failure Tests"
+    - name: "Generate Refresh token based on any random token"
+    - url: "/api/auth/refresh-token"
+    - method: "POST"
+    - headers: {authorization: bla}
+    - expected_status: [400]
