@@ -1,0 +1,62 @@
+---
+- config:
+    - testset: "Admin api tests"
+
+- test:
+    - group: ":Expected Failure Tests"
+    - name: "Make sure login api without params return 405: Method Not allowed"
+    - url: "/api/auth/login"
+    - expected_status: [405]
+
+- test:
+    - group: ":Expected Failure Tests"
+    - name: "Login with incorrect username generates error"
+    - url: "/api/auth/login"
+    - method: "POST"
+    - body: '{"username": "userx","password": "password"}'
+    - expected_status: [400]
+
+- test:
+    - group: ":Expected Failure Tests"
+    - name: "Login with incorrect password generates error"
+    - url: "/api/auth/login"
+    - method: "POST"
+    - body: '{"username": "user","password": "passwordy"}'
+    - expected_status: [400]
+
+- test:
+    - group: ":Successful Tests"
+    - name: "Login with correct username and password generates auth and refresh tokens"
+    - url: "/api/auth/login"
+    - method: "POST"
+    - body: '{"username": "user","password": "password"}'
+    - expected_status: [200]
+    - extract_binds:
+        - 'refresh_token': {'jsonpath_mini': 'refresh_token'}
+        - 'access_token': {'jsonpath_mini': 'access_token'}
+    - validators: # Validate that we get valid tokens whose token length is 136 characters
+        - extract_test: {jsonpath_mini: 'access_token', test: "exists"}
+        - extract_test: {jsonpath_mini: 'refresh_token', test: "exists"}
+        - compare: {jsonpath_mini: "access_token", comparator: "length_eq", expected: 136}
+        - compare: {jsonpath_mini: "refresh_token", comparator: "length_eq", expected: 136}
+
+- test:
+    - group: ":Successful Tests"
+    - name: "Check the user using generated token"
+    - url: "/api/example/whoami"
+    - method: "GET"
+    - headers: {template: {authorization: $access_token}}
+    - expected_status: [200]
+    - validators: # Validate that we get username after requesting with valid token
+        - compare: {jsonpath_mini: 'username', comparator: 'str_eq', expected: 'user'}
+
+- test:
+  - group: ":Successful Tests"
+  - name: "Generate Refresh token based on generated access_token"
+  - url: "/api/auth/refresh-token"
+  - method: "POST"
+  - headers: {template: {authorization: $refresh_token}}
+  - expected_status: [200]
+  - validators: # Validate that we get access token after requesting with valid refresh token
+        - extract_test: {jsonpath_mini: 'access_token', test: "exists"}
+        - compare: {jsonpath_mini: "access_token", comparator: "length_eq", expected: 136}
