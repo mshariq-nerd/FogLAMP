@@ -1,0 +1,252 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Foglamp admin api",
+		"_postman_id": "01ddb2f3-f118-51b6-10a3-8128641f4dea",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Success login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful POST request\"] = responseCode.code === 200",
+							"tests[\"Response has access-token\"] = responseBody.has(\"access_token\");",
+							"tests[\"Response has refresh-token\"] = responseBody.has(\"refresh_token\");",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"access_token lenth\"] = jsonData.access_token.length === 136;",
+							"tests[\"refresh-token lenth\"] = jsonData.access_token.length === 136;",
+							"postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);",
+							"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/api/auth/login",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"user\", \"password\": \"password\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Failed login without credentials",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Unsuccessful POST request\"] = responseCode.code === 400",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/api/auth/login",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Failed login with incorrect username",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Unsuccessful POST request\"] = responseCode.code === 400",
+							"tests[\"Response does not have access-token\"] = !responseBody.has(\"access_token\");",
+							"tests[\"Response does not have refresh-token\"] = !responseBody.has(\"refresh_token\");",
+							"",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/api/auth/login",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"userx\", \"password\": \"password\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Failed login with incorrect password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Unsuccessful POST request\"] = responseCode.code === 400",
+							"tests[\"Response does not have access-token\"] = !responseBody.has(\"access_token\");",
+							"tests[\"Response does not have refresh-token\"] = !responseBody.has(\"refresh_token\");",
+							"",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/api/auth/login",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"user\", \"password\": \"passwordx\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Successful whoami",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Value of username is correct\"] = jsonData.username === 'user';"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/api/example/whoami",
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{access_token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Successful Refresh token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful POST request\"] = responseCode.code === 200",
+							"tests[\"Response has access-token\"] = responseBody.has(\"access_token\");",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"access_token lenth\"] = jsonData.access_token.length === 136;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/api/auth/refresh-token",
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{refresh_token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Unsuccessful Refresh token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Unsuccessful POST request\"] = responseCode.code === 400",
+							"tests[\"Response has access-token\"] = !responseBody.has(\"access_token\");",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/api/auth/refresh-token",
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "\"blah\"",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Unsuccessful whoami",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 400\"] = responseCode.code === 400;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/api/example/whoami",
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "\"blah\"",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

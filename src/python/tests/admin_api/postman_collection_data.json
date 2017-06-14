@@ -1,0 +1,16 @@
+{
+  "id": "e2c9dc6e-56e5-20c0-0f7c-880ce5074e08",
+  "name": "Foglamp",
+  "values": [
+    {
+      "enabled": true,
+      "key": "url",
+      "value": "localhost:8080",
+      "type": "text"
+    }
+  ],
+  "timestamp": 1497440985047,
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2017-06-14T12:15:09.087Z",
+  "_postman_exported_using": "Postman/5.0.0"
+}
