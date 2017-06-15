@@ -20,7 +20,7 @@
 							"tests[\"Response has refresh-token\"] = responseBody.has(\"refresh_token\");",
 							"var jsonData = JSON.parse(responseBody);",
 							"tests[\"access_token length\"] = jsonData.access_token.length === 136;",
-							"tests[\"refresh-token length\"] = jsonData.access_token.length === 136;",
+							"tests[\"refresh-token length\"] = jsonData.refresh_token.length === 136;",
 							"postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);",
 							"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token);",
 							""
