@@ -19,8 +19,8 @@
 							"tests[\"Response has access-token\"] = responseBody.has(\"access_token\");",
 							"tests[\"Response has refresh-token\"] = responseBody.has(\"refresh_token\");",
 							"var jsonData = JSON.parse(responseBody);",
-							"tests[\"access_token lenth\"] = jsonData.access_token.length === 136;",
-							"tests[\"refresh-token lenth\"] = jsonData.access_token.length === 136;",
+							"tests[\"access_token length\"] = jsonData.access_token.length === 136;",
+							"tests[\"refresh-token length\"] = jsonData.access_token.length === 136;",
 							"postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);",
 							"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token);",
 							""
@@ -170,7 +170,7 @@
 							"tests[\"Successful POST request\"] = responseCode.code === 200",
 							"tests[\"Response has access-token\"] = responseBody.has(\"access_token\");",
 							"var jsonData = JSON.parse(responseBody);",
-							"tests[\"access_token lenth\"] = jsonData.access_token.length === 136;"
+							"tests[\"access_token length\"] = jsonData.access_token.length === 136;"
 						]
 					}
 				}
