@@ -74,7 +74,7 @@ logger:
       class: logging.handlers.SysLogHandler
       level: WARNING
       formatter: standard
-      address: /var/run/syslog # /dev/log for Linux; /var/run/syslog for OSX this will print to /var/log/system.log
+      address: /dev/log # /dev/log for Linux; /var/run/syslog for OSX this will print to /var/log/system.log
 
   loggers:
     x_logger:

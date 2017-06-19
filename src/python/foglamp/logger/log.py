@@ -9,7 +9,7 @@ log = logging.getLogger(__name__)
 
 log.setLevel(logging.DEBUG)
 
-handler = logging.handlers.SysLogHandler(address = '/var/run/syslog') #/dev/log
+handler = logging.handlers.SysLogHandler(address = '/dev/log') #/var/run/syslog
 
 formatter = logging.Formatter('%(module)s.%(funcName)s: %(message)s')
 handler.setFormatter(formatter)
