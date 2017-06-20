@@ -2,7 +2,6 @@ from aiohttp import web
 from foglamp.admin_api.model import User
 from foglamp.admin_api.login import register_handlers as login_register_handlers
 from foglamp.admin_api.auth import auth_middleware
-import foglamp.env as env
 
 
 def build():
