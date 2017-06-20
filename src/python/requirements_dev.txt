@@ -1,3 +1,2 @@
 -r requirements.txt
-aiohttp_cors
 -r requirements_test.txt
