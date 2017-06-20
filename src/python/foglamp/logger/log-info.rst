@@ -32,10 +32,6 @@ How to run/ test
 1) `source build.sh -c`
 2) delete `src/python/foglamp/foglamp-env.yaml`
 3) `source build.sh -i`
-4) `python foglamp/logger/log.py` (not using yaml stuff)
-5) `python foglamp/logger/log_demo.py`
-6) `python foglamp/logger/log_demo2.py`
-
-if you are installing and want to use in API (or run it), make sure to call `make develop` to get `aiohttp_cors` dependency.
+4) `python foglamp/logger/log_demo.py`
 
 **Note:** `setup_logging()` is being called via `load_config()`

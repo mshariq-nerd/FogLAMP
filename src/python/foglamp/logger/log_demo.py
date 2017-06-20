@@ -1,7 +1,9 @@
 import logging
 import foglamp.env as env
-logger = logging.getLogger('x_logger')
 
+# logger = logging.getLogger("debug") # will log to log/debug.log
+
+logger = logging.getLogger() # calling root
 
 def foo():
     logger.info('Hi, foo')
