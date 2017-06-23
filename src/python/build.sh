@@ -67,7 +67,7 @@ Exit status code:
   with status code 1 when errors occur (e.g., tests fail)"
 
 setup_and_run() {
-    IN_VENV=$(python -c 'import sys; print ("1" if hasattr(sys, "real_prefix") else "0")')
+    IN_VENV=$(python3 -c 'import sys; print ("1" if hasattr(sys, "real_prefix") else "0")')
 
     if [ $IN_VENV -gt 0 ]
     then
@@ -177,7 +177,7 @@ setup_and_run() {
         echo "-- Activating the virtualenv at $VENV_PATH"
         source "$VENV_PATH/bin/activate"
 
-        IN_VENV=$(python -c 'import sys; print ("1" if hasattr(sys, "real_prefix") else "0")')
+        IN_VENV=$(python3 -c 'import sys; print ("1" if hasattr(sys, "real_prefix") else "0")')
 
         if [ $IN_VENV -lt 1 ]
         then
