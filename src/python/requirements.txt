@@ -4,12 +4,12 @@ cbor2==4.0.0
 LinkHeader==0.4.3
 
 # deployment
+
+# 'packaging' enables pip install -e 
+# TODO packaging can be moved a different file when snaps are implemented
 packaging==16.8
 
-# env
-PyYAML==3.12
-
-# postgreSQL
+# PostgreSQL
 aiopg==0.13.0
 SQLAlchemy==1.1.10
 psycopg2==2.7.1
@@ -21,4 +21,7 @@ httpie==0.9.9
 PyJWT==1.5.0
 
 # run
+
+# TODO 'python-daemon' will probably be removed permanently when snaps are implemented 
 python-daemon==2.1.2
+

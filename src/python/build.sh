@@ -210,9 +210,6 @@ setup_and_run() {
         return
     fi
     
-    # TODO this will be deleted
-    make create-env
-
     if [ "$OPTION" == "DEV_DEP" ]
     then
         make install-dev-dep
