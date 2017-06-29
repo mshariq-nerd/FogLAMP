@@ -1,7 +1,6 @@
 """Runs foglamp as a daemon"""
 
 import os
-import subprocess
 import argparse
 import logging
 import psutil
