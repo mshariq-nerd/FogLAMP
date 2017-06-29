@@ -4,8 +4,9 @@
 # See: http://foglamp.readthedocs.io/
 # FOGLAMP_END
 
+import time
 from aiohttp import web
-from foglamp_daemon import find_process_start_time
+from foglamp_daemon import find_process_info
 
 async def ping(request):
     """
@@ -14,11 +15,10 @@ async def ping(request):
     """
 
     # Since foglamp can be started in foreground or as a daemon, need to check for both foglampd and foglamp
-    process_started_at = find_process_start_time('foglampd') or find_process_start_time('foglamp')
+    process_info = find_process_info('foglampd') or find_process_info('foglamp')
 
     since_started = 0
-    if process_started_at is not None:
-        # TODO: calculate since_started = now - process_started_at
-        since_started = process_started_at
+    if process_info is not None:
+        since_started = time.time() - process_info['start_time']
 
     return web.json_response({'uptime': since_started})
