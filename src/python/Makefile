@@ -56,6 +56,9 @@ clean-pyc:
 clean-test:
 	rm -fr .cache
 	rm -fr .tox
+	rm -fr .coverage
+	rm -fr htmlcov/
+	rm -fr ../../allure/
 
 # TODO deleteme
 create-env:
@@ -103,7 +106,13 @@ live-doc: install-doc-dep
 py-test: install-tox
 	tox -e py35
 
-test: py-test doc-build-test
+test: py-test doc-build-test cov-report test-report
+
+cov-report:
+	open htmlcov/index.html
+
+test-report:
+	cd ../../allure/ && allure generate . && allure report open
 
 .PHONY: \
 	help \
