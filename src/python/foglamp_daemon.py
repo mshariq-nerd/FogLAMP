@@ -1,7 +1,7 @@
 """Runs foglamp as a daemon"""
 
 import os
-
+import subprocess
 import argparse
 import logging
 import daemon
@@ -58,6 +58,47 @@ def safe_makedirs(directory):
         if not os.path.exists(directory):
             raise e
 
+def find_process_start_time(process_name):
+    """
+    Find Process start time
+
+    :param process_name: name of the process
+    :return: string start_time or None if no such process exists
+    """
+    f_ps = subprocess.Popen("ps h -C " + process_name + " -o lstart", shell=True, stdout=subprocess.PIPE)
+    start_time = f_ps.stdout.read().decode("utf-8")[:-1] # remove last \n character
+    f_ps.stdout.close()
+    f_ps.wait()
+
+    return start_time
+
+def find_process_details(process_name):
+    """
+    Find Process details
+
+    :param process_name: name of the process
+    :return: dict of process details or None if no such process exists
+    """
+    f_ps = subprocess.Popen("ps h -C " + process_name + " -o comm,pid,ppid,tname,pmem,pcpu,c", shell=True,
+                            stdout=subprocess.PIPE)
+    output = f_ps.stdout.read().decode("utf-8")
+    f_ps.stdout.close()
+    f_ps.wait()
+
+    if output == "" or output is None:
+        return None
+
+    fields = output.split()
+    return dict({
+        "name": fields[0],
+        "start_time": find_process_start_time(process_name),
+        "pid": fields[1],
+        "ppid": fields[2],
+        "tname": fields[3],
+        "pmem": fields[4],
+        "pcpu": fields[5],
+        "ccpu": fields[6]
+    })
 
 def main():
     parser = argparse.ArgumentParser(description="FogLAMP daemon in Python")
