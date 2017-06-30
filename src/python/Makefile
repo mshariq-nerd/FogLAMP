@@ -98,7 +98,7 @@ lint-js:
 
 lint-python: install-test-dep
 	rm -f pylint*.log
-	pylint $(shell find . -iname "*.py" ! -path './venv*' ! -path './.tox*') > pylint_$(shell date +%FT%T%Z).log || exit 0
+	pylint $(shell pwd) > pylint_$(shell date +%FT%T%Z).log || exit 0
 
 live-doc: install-doc-dep
 	cd ../../docs && make livehtml
