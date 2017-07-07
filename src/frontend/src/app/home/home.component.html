@@ -6,7 +6,7 @@
     </div>
     <div class="nav-right">    
      <div class="field level-right">
-         Welcome &nbsp; <b> {{ currentUser }} </b> &nbsp;    
+         Welcome &nbsp; <b> {{ user?.username }} </b> &nbsp;    
         <button  class="button" (click)=logOut()>Logout</button>
       </div>
     </div>
@@ -18,7 +18,7 @@
 
  <div class="panel">
         <p class="panel-heading">Values</p>
-        <div *ngFor="let entry of (xdata | keys)" class="panel-block">
+        <div *ngFor="let entry of (xdata | keys) " class="panel-block">
           <p class="control">
               <label class="label">{{ entry.key }}</label> 
           </p>

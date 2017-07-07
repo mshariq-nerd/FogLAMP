@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/index';
-import { Observable } from 'rxjs/Rx';
 
+import { Observable } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
+import {Store} from '@ngrx/store';
+
+import {User} from '../models/user';
 
 @Component({
     moduleId: module.id.toString(),
@@ -10,14 +14,21 @@ import { Observable } from 'rxjs/Rx';
 })
 
 export class HomeComponent {
-    private currentUser: String
+    user: User;
     private timer:any = ''
     private xdata:{} = {}
     private errorMessage:any = ''
     options: Object;
+    
+    userState: Observable<User>;
+    private objectStateSubscription: Subscription;
    
-    constructor(private router: Router, private authService: AuthService) {
-        this.currentUser = sessionStorage.getItem('currentUser');
+    constructor(private router: Router, private authService: AuthService,  
+    private store: Store<User>) {
+            this.userState = store.select("userReducer");
+            this.objectStateSubscription = this.userState.subscribe((state) => {
+            this.user = state;
+        });
         this.options = {
             minValue: 0,
             maxValue: 255,

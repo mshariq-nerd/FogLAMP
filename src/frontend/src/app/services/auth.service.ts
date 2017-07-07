@@ -36,10 +36,7 @@ export class AuthService {
         headers.append("authorization", token)
         let options = new RequestOptions({ headers: headers })
         return this.http.get(this.ME_URL, options)
-        .map((response: Response) => { 
-            console.log(response.json())
-            sessionStorage.setItem('currentUser', response.json().username)
-        })
+        .map(res => res.json())
         .catch((error:Response) => Observable.throw(error.json().message || 'Server error'));
       }
 

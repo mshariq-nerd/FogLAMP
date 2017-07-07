@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService, AuthService } from '../services/index';
 
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs/Rx'
+
+import {User} from '../models/user';
+
 @Component({
     moduleId: module.id.toString(),
     templateUrl: 'login.component.html'
@@ -15,7 +20,7 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authService: AuthService,
-        private alertService: AlertService) {}
+        private alertService: AlertService, private store: Store<User>) {}
 
     ngOnInit() {
         // get return url from route parameters or default to '/'
@@ -34,8 +39,13 @@ export class LoginComponent implements OnInit {
         this.authService.getWhoAmi(token)
         .subscribe(
             data=>{
-                this.router.navigate([this.returnUrl]);
-            });
+                console.log("Current_USER", data);
+                 this.store.dispatch({ 
+                    type: 'CURRENT_USER',
+                    payload: data});
+                 this.router.navigate([this.returnUrl]);
+             }
+        );
       },
       error => {
           this.alertService.error(error);

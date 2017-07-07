@@ -3,6 +3,9 @@ import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { StoreModule } from "@ngrx/store";
+import { userReducer } from "./store/user-reducer"
+
 import { AppComponent } from './app.component';
 import { routing }        from './app.routing';
 
@@ -22,7 +25,8 @@ import { NgzioGaugeComponentModule } from './ngzio-gauge/ngzio-gauge.module';
     FormsModule,
     HttpModule,
     routing,
-    NgzioGaugeComponentModule
+    NgzioGaugeComponentModule,
+    StoreModule.provideStore({userReducer}),
   ],
   declarations: [
     AppComponent,
