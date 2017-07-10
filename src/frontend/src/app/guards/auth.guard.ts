@@ -12,20 +12,14 @@ export class AuthGuard implements CanActivate {
     user: User;
     userState: Observable<User>;
     private objectStateSubscription: Subscription;
-    constructor(private router: Router, private store: Store<User>) {
-            this.userState = store.select("userReducer");
-            this.objectStateSubscription = this.userState.subscribe((state) => {
-            this.user = state;
-            console.log("User: ", this.user);
-        });
-     }
+    constructor(private router: Router){}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (this.user) {
-            // logged in so return true
+        if (sessionStorage.getItem('access_token')){
+            // active session available so return true
             return true;
         }
-
+        
         // not logged in so redirect to login page with the return url
         this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
         return false;

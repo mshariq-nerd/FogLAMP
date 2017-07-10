@@ -39,13 +39,12 @@ export class LoginComponent implements OnInit {
         this.authService.getWhoAmi(token)
         .subscribe(
             data=>{
-                console.log("Current_USER", data);
-                 this.store.dispatch({ 
+                console.log("CURRENT_USER", data);
+                this.store.dispatch({ 
                     type: 'CURRENT_USER',
                     payload: data});
-                 this.router.navigate([this.returnUrl]);
-             }
-        );
+                this.router.navigate([this.returnUrl]);
+             });
       },
       error => {
           this.alertService.error(error);

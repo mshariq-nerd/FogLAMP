@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-import {User} from '../models/user';
 
 export const userReducer = (state: any = null, action: Action) => {
   switch (action.type) {

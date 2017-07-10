@@ -3,9 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/index';
 
 import { Observable } from 'rxjs/Rx';
-import { Subscription } from 'rxjs/Subscription';
 import {Store} from '@ngrx/store';
-
 import {User} from '../models/user';
 
 @Component({
@@ -19,16 +17,14 @@ export class HomeComponent {
     private xdata:{} = {}
     private errorMessage:any = ''
     options: Object;
-    
     userState: Observable<User>;
-    private objectStateSubscription: Subscription;
    
     constructor(private router: Router, private authService: AuthService,  
     private store: Store<User>) {
             this.userState = store.select("userReducer");
-            this.objectStateSubscription = this.userState.subscribe((state) => {
-            this.user = state;
-        });
+            this.userState.subscribe((user) => {
+                this.user = user;
+            });
         this.options = {
             minValue: 0,
             maxValue: 255,
@@ -37,6 +33,9 @@ export class HomeComponent {
         }
         this.options['data-type']="radial-gauge";
     }
+     ngOnInit() {
+         
+     }
     
     /**
      *  Signout the current user
@@ -46,6 +45,10 @@ export class HomeComponent {
         sessionStorage.removeItem('access_token');
         sessionStorage.removeItem('currentUser');
         this.router.navigate(['/login']);
+    }
+
+    next(){
+        this.router.navigate(['/dummy']);
     }
     
     startCollecting(){
