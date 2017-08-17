@@ -18,7 +18,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "assets/css/bulma.min.css",
+        "assets/css/main.sass",
         "assets/css/font-awesome.min.css"
       ],
       "scripts": [],
