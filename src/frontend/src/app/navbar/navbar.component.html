@@ -9,6 +9,8 @@
   </div>
   <div class="navbar-end">
     <a class="navbar-item">
+      <span class="has-text-grey-light"><small>v{{version}}b{{build}}</small></span>
+      &nbsp;&nbsp;
       <span [ngClass]="ping_info.is_alive?'tag is-success':'tag is-danger'">{{ping_info.service_status}}</span>
     </a>
   </div>

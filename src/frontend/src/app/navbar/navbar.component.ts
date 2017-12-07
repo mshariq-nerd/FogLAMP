@@ -14,6 +14,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public timer: any = '';
   public ping_data = {};
   public ping_info = { is_alive: false, service_status: 'service down' };
+  public version: string  = require('../../../package.json').version;
+  public build: string  = require('../../../package.json').build;
+
   constructor(private servicesHealthService: ServicesHealthService) { }
   ngOnInit() {
     this.start();
