@@ -20,6 +20,7 @@ export class ChartModalComponent implements OnInit {
   public assetReadingSummary = [];
   public isReadingsAvailable = false;
   public isInvalidInput = false;
+  public loading = true;
 
   @ViewChild(ChartComponent) private chartComp;
 
@@ -83,6 +84,7 @@ export class ChartModalComponent implements OnInit {
             });
           this.assetSummaryService.assetReadingSummary.subscribe(
             value => {
+              this.loading = false;
               this.assetReadingSummary = value;
             });
         } else {

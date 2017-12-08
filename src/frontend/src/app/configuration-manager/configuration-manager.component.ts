@@ -8,6 +8,7 @@ import { ConfigurationService, AlertService } from '../services/index';
 })
 export class ConfigurationManagerComponent implements OnInit {
   public categoryData = [];
+  public loading = true;
   constructor(private configService: ConfigurationService, private alertService: AlertService) { }
   ngOnInit() {
     this.getCategories();
@@ -35,6 +36,7 @@ export class ConfigurationManagerComponent implements OnInit {
     this.configService.getCategory(category_name).
       subscribe(
       data => {
+        this.loading = false;
         if (data.error) {
           console.log('error in response', data.error);
           this.alertService.error(data.error.message);

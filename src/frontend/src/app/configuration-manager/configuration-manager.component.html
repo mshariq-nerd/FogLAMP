@@ -1,4 +1,5 @@
-<div class="container is-fluid">
+<app-loading class="center" *ngIf="loading === true"></app-loading>
+<div *ngIf="loading === false" class="container is-fluid">
   <!-- cards to be rendred as config.categories.count-->
   <div class="card" *ngFor="let category of categoryData">
     <header class="card-header">

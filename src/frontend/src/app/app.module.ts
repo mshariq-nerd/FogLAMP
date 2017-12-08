@@ -41,6 +41,7 @@ import { ListTasksComponent } from './scheduler/list-tasks/list-tasks.component'
 import { AssetSummaryComponent } from './asset-readings/asset-summary/asset-summary.component';
 import { ChartModalComponent } from './asset-readings/chart-modal/chart-modal.component';
 import { AssetSummaryService } from './asset-readings/asset-summary/asset-summary-service';
+import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import { AssetSummaryService } from './asset-readings/asset-summary/asset-summar
     CreateScheduleComponent,
     ListTasksComponent,
     AssetSummaryComponent,
-    ChartModalComponent
+    ChartModalComponent,
+    LoadingComponent
   ],
   providers: [
     AuthGuard,

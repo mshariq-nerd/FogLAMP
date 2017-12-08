@@ -26,6 +26,8 @@ export class AssetsComponent implements OnInit {
   public assetData: Object;
   public isChart = false;
   public isSummary = false;
+  public isLoadingAsset: boolean = true;
+  public isLoadingReadings: boolean = false;
   @ViewChild(AssetSummaryComponent) assetSummaryComponent: AssetSummaryComponent;
   @ViewChild(ChartModalComponent) chartModalComponent: ChartModalComponent;
 
@@ -104,6 +106,7 @@ export class AssetsComponent implements OnInit {
   public setAssetCode(assetData) {
     this.isChart = true;
     this.isSummary = true;
+    this.isLoadingReadings = true;
     this.asset = assetData;
     if (this.offset !== 0) {
       this.recordCount = this.asset['count'] - this.offset;
@@ -149,6 +152,7 @@ export class AssetsComponent implements OnInit {
     this.assetService.getAsset().
       subscribe(
       data => {
+        this.isLoadingAsset = false;
         if (data.error) {
           console.log('error in response', data.error);
           this.alertService.error(data.error.message);
@@ -174,6 +178,7 @@ export class AssetsComponent implements OnInit {
     this.assetService.getAssetReadings(encodeURIComponent(this.asset['asset_code']), this.limit, this.tempOffset).
       subscribe(
       data => {
+        this.isLoadingReadings = false;
         if (data.error) {
           console.log('error in response', data.error);
           this.alertService.error(data.error.message);

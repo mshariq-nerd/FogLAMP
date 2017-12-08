@@ -18,6 +18,7 @@ export class AssetSummaryComponent implements OnInit {
   public assetChart: string;
   public summaryValues: any;
   public chartOptions: any;
+  public loading = true;
 
   constructor(private assetService: AssetsService, private assetSummaryService: AssetSummaryService) { }
 
@@ -54,6 +55,7 @@ export class AssetSummaryComponent implements OnInit {
           this.assetSummaryService.getReadingSummary(record);
           this.assetSummaryService.assetReadingSummary.subscribe(
             value => {
+              this.loading = false;
               this.assetReadingSummary = value;
             });
         } else {

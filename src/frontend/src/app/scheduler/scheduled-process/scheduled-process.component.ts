@@ -24,6 +24,7 @@ export class ScheduledProcessComponent implements OnInit {
   public scheduleProcess = [];
   public scheduleType = [];
   public days = [];
+  public loading: boolean = true;
 
   public scheduler_name: string;
 
@@ -51,6 +52,7 @@ export class ScheduledProcessComponent implements OnInit {
     this.schedulesService.getSchedules().
       subscribe(
       data => {
+        this.loading = false;
         if (data.error) {
           this.alertService.error(data.error.message);
           return;

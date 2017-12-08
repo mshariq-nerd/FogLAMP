@@ -3,7 +3,8 @@
     <div class="tile is-parent">
       <article class="tile is-child box">
         <h5 class="title"><small> Assets </small></h5>
-        <table class="table is-striped is-narrow scroll is-responsive">
+        <app-loading class="center" *ngIf="isLoadingAsset === true"></app-loading>
+        <table *ngIf="isLoadingAsset === false" class="table is-striped is-narrow scroll is-responsive">
           <thead>
             <tr>
               <th>Asset</th>
@@ -55,7 +56,8 @@
             <input-debounce placeholder="offset" type='number' (value)="setOffset($event)"></input-debounce>
           </div>
         </div>
-        <table class="table is-striped is-narrow scroll is-responsive">
+        <app-loading class="center" *ngIf="isLoadingReadings === true"></app-loading>
+        <table *ngIf="isLoadingReadings === false" class="table is-striped is-narrow scroll is-responsive">
           <thead>
             <tr>
               <th>Asset</th>

@@ -9,7 +9,7 @@ import { SchedulesService, AlertService } from '../../services/index';
 export class ListTasksComponent implements OnInit {
   public tasksData = [];
   public selectedTaskType = 'Latest'; // Default is LATEST
-
+  public loading: boolean = true;
   constructor(private schedulesService: SchedulesService, private alertService: AlertService) {}
 
   ngOnInit() {
@@ -38,6 +38,7 @@ export class ListTasksComponent implements OnInit {
     this.schedulesService.getLatestTask().
       subscribe(
       data => {
+        this.loading = false;
         if (data.error) {
           this.alertService.error(data.error.message);
           return;

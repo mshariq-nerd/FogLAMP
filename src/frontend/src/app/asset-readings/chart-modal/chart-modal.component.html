@@ -7,7 +7,8 @@
           <p class="modal-card-title">{{assetCode}}</p>
         </div>
         <div class="column is-4">
-          <input-debounce placeholder="Limit(max 1000)" type="text" #limit (value)="plotReadingsGraph(assetCode, limit.inputValue, offset.inputValue)" max="1000"></input-debounce>
+          <input-debounce placeholder="Limit(max 1000)" type="text" #limit (value)="plotReadingsGraph(assetCode, limit.inputValue, offset.inputValue)"
+            max="1000"></input-debounce>
         </div>
         <div class="column is-2">
           <input-debounce placeholder="offset" type="text" #offset (value)="plotReadingsGraph(assetCode, limit.inputValue, offset.inputValue)"></input-debounce>
@@ -19,24 +20,29 @@
       </div>
     </header>
     <section class="modal-card-body">
-      <div *ngIf='isValidData'>
-        <div class="field is-grouped is-grouped-multiline" *ngFor="let readings of assetReadingSummary">
-          <div class="control">
-            <div class="tags has-addons" *ngFor="let reading of readings.summary">
-              <span><b>{{readings.key}} &nbsp;</b></span>
-              <span class="tag is-light"> Avg </span>
-              <span class="tag is-info">{{reading.average}}</span> &nbsp;
-              <span class="tag is-light"> Min </span>
-              <span class="tag is-info">{{reading.min}}</span> &nbsp;
-              <span class="tag is-light"> Max </span>
-              <span class="tag is-info">{{reading.max}}</span> &nbsp;
+      <app-loading class="center" *ngIf="loading === true"></app-loading>
+      <div *ngIf="loading === false">
+        <div *ngIf='isValidData'>
+          <div class="field is-grouped is-grouped-multiline" *ngFor="let readings of assetReadingSummary">
+            <div class="control">
+              <div class="tags has-addons" *ngFor="let reading of readings.summary">
+                <span>
+                  <b>{{readings.key}} &nbsp;</b>
+                </span>
+                <span class="tag is-light"> Avg </span>
+                <span class="tag is-info">{{reading.average}}</span> &nbsp;
+                <span class="tag is-light"> Min </span>
+                <span class="tag is-info">{{reading.min}}</span> &nbsp;
+                <span class="tag is-light"> Max </span>
+                <span class="tag is-info">{{reading.max}}</span> &nbsp;
+              </div>
             </div>
           </div>
         </div>
+        <br>
+        <p *ngIf='(isInvalidInput || !isValidData || !isReadingsAvailable)'> Not Available </p>
+        <chart *ngIf='(!isInvalidInput && isValidData  && isReadingsAvailable)' [type]="assetChart" [data]="assetReadingValues" [options]=""></chart>
       </div>
-      <br>
-      <p *ngIf='(isInvalidInput || !isValidData || !isReadingsAvailable)'> Not Available </p>
-      <chart *ngIf='(!isInvalidInput && isValidData  && isReadingsAvailable)' [type]="assetChart" [data]="assetReadingValues" [options]=""></chart>
     </section>
   </div>
 </div>

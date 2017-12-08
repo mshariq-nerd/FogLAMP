@@ -8,7 +8,8 @@
           </p>
         </header>
         <div class="card-content">
-          <table class="table is-striped scroll is-responsive">
+          <app-loading class="center" *ngIf="loading === true"></app-loading>
+          <table *ngIf="loading === false" class="table is-striped scroll is-responsive">
             <thead id="head">
               <tr>
                 <th>Name</th>

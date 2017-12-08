@@ -21,7 +21,8 @@ export class DashboardComponent implements OnInit {
 
   sentChart: string;
   sentValues: any;
-  public chartOptions: any;
+  chartOptions: any;
+  loading: boolean = true; 
 
   constructor(private statisticsService: StatisticsService, private alertService: AlertService) {
 
@@ -73,6 +74,7 @@ export class DashboardComponent implements OnInit {
     const datePipe = new MomentDatePipe();
     this.statisticsService.getStatisticsHistory().
       subscribe(data => {
+        this.loading = false;
         if (data.error) {
           console.log('error in response', data.error);
           this.alertService.error(data.error.message);
